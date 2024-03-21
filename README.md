@@ -7,6 +7,8 @@ databricks bundle init default-python --profile <nome>
 
 ## Como usar
 
+![Fluxograma](https://github.com/vorodrigues/databricks-data-ops/blob/0d253c1baf76592087850ec2ae6de6e33f2a952c/img/data-ops.png?raw=true)
+
 1. **Clone** este repositório na sua ferramenta de versionamento de código
 
 1. Crie uma **branch** de desenvolvimento / feature
