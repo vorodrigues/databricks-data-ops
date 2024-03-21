@@ -23,7 +23,7 @@ databricks bundle init default-python --profile <nome>
 
 1. Crie um **pull request**
    * O processo de CI será iniciado automaticamente
-   * Aguarde odeploy dos ativos e a execução dos testes na `STAGING`
+   * Aguarde o deploy dos ativos e a execução dos testes na `STAGING`
 
 1. **Aprove** o PR em caso de sucesso
    * O processo de CD será iniciado automaticamente
