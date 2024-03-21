@@ -1,6 +1,6 @@
 # Databricks Data Ops
 
-O projeto 'databricks_data_ops' foi gerado usando o template `default-python` do [Databricks Asset Bundles](https://docs.databricks.com/en/dev-tools/bundles/index.html).
+O projeto 'databricks-data-ops' foi gerado usando o template `default-python` do [Databricks Asset Bundles](https://docs.databricks.com/en/dev-tools/bundles/index.html).
 ```
 databricks bundle init default-python --profile <nome>
 ```
