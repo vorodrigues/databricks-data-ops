@@ -5,16 +5,14 @@
 name: Bundle Deployment for databricks_data_ops Prod
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'main'
-    paths:
-      - 'data-ops/**'
-  workflow_dispatch:
 
 defaults:
   run:
-    working-directory: ./data-ops/
+    working-directory: ./
 
 env:
   DATABRICKS_TOKEN: ${{ secrets.PROD_WORKSPACE_TOKEN }}

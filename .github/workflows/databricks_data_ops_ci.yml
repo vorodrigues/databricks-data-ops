@@ -1,15 +1,14 @@
 name: Tests for databricks_data_ops
+
 on:
   workflow_dispatch:
   pull_request:
     branches:
       - 'main'
-    paths:
-      - 'data-ops/**'
 
 defaults:
   run:
-    working-directory: ./data-ops/
+    working-directory: ./
 
 env:
   DATABRICKS_TOKEN: ${{ secrets.STAGING_WORKSPACE_TOKEN }}
