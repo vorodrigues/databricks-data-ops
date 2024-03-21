@@ -7,9 +7,15 @@ databricks bundle init default-python --profile <nome>
 
 ## Como usar
 
-1. **Clone** este repositório
+1. **Clone** este repositório na sua ferramenta de versionamento de código
 
 1. Crie uma **branch** de desenvolvimento / feature
+
+1. Crie os **secrets** abaixo na sua ferramenta de automação
+   * `STAGING_WORKSPACE_TOKEN`
+   * `PROD_WORKSPACE_TOKEN`
+
+1. Crie um **Databricks Repo** a partir da branch de desenvolvimento / feature
 
 1. **Customize** de acordo com o seu projeto
 
@@ -29,6 +35,8 @@ databricks bundle init default-python --profile <nome>
    * Usar um *service principal* ao invés de um usuário pessoal
    * Usar um diretório específico para o projeto (ao invés de um diretório pessoal)
    * No `databricks.yml`, usem o `mode: production`. Dessa forma, essas boas práticas serão validadas automaticamente durante o processo de CI
+
+1. Recomendamos usar um *service principal* no processo de CI/CD
 
 1. No momento, os testes unitários estão desabilitados. Caso necessário, configure o Databricks Connect na workflow de CI ou altere os testes para usar uma sessão local do Spark
 
