@@ -5,6 +5,15 @@ O projeto 'databricks-data-ops' foi gerado usando o template `default-python` do
 databricks bundle init default-python --profile <nome>
 ```
 
+## Introdução
+
+Este repositório fornece um exemplo funcional de Data Ops baseado em boas práticas da Databricks.
+
+Para isso, consideramos um job simples com três tarefas, que fornecem referências para os seguintes cenários: 
+* Execução de notebooks
+* Execução de pipelines do DLT
+* Execução de módulos Python customizados (wheel)
+
 ## Como usar
 
 ![Fluxograma](https://github.com/vorodrigues/databricks-data-ops/blob/0d253c1baf76592087850ec2ae6de6e33f2a952c/img/data-ops.png?raw=true)
@@ -30,6 +39,30 @@ databricks bundle init default-python --profile <nome>
 1. **Aprove** o PR em caso de sucesso
    * O processo de CD será iniciado automaticamente
    * Aguarde o deploy dos ativos em `PROD`
+
+## Estrutura do Projeto
+
+```
+├── .github/workflows                        # Definição dos pipelines de CI/CD
+|     ├── ci_lint_cicd_workflows.yml
+|     ├── databricks_data_ops_cd.yml
+|     └── databricks_data_ops_ci.yml
+├── resources                                # Definição dos jobs, pipelines, clusters...
+|     ├── databricks_data_ops_job.yml
+|     └── databricks_data_ops_pipeline.yml
+├── src                                      # Código do projeto
+|     ├── databricks_data_ops                # Exemplo de módulo customizado
+|     |     └── main.py
+|     ├── dlt_pipeline.ipynb
+|     └── notebook.ipynb
+├── tests                                    # Código dos testes unitários
+|     ├── main_test.py
+|     └── requirements-test.txt
+├── databricks.yml                           # Definição dos ambientes de desenvolvimento
+├── pytest.ini                               # Configuração do pytest
+├── requirements-dev.txt                     # Dependências do projeto
+└── setup.py                                 # Configuração do setuptools
+```
 
 ## Notas
 
