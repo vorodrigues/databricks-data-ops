@@ -7,7 +7,9 @@ databricks bundle init default-python --profile <nome>
 
 ## Introdução
 
-Este repositório fornece um exemplo funcional de Data Ops baseado em boas práticas da Databricks.
+Este repositório fornece um exemplo funcional de Data Ops baseado em boas práticas da Databricks.<br><br>
+
+<img src="https://github.com/vorodrigues/databricks-data-ops/blob/main/img/worflow.png?raw=true" width=1000/>
 
 Para isso, consideramos um job simples com três tarefas, que fornecem referências para os seguintes cenários: 
 * Execução de notebooks
@@ -15,8 +17,8 @@ Para isso, consideramos um job simples com três tarefas, que fornecem referênc
 * Execução de módulos Python customizados (wheel)
 
 ## Como usar
-
-![Fluxograma](https://github.com/vorodrigues/databricks-data-ops/blob/0d253c1baf76592087850ec2ae6de6e33f2a952c/img/data-ops.png?raw=true)
+<br>
+<img src="https://github.com/vorodrigues/databricks-data-ops/blob/main/img/data-ops.png?raw=true" width=1000/>
 
 1. **Clone** este repositório na sua ferramenta de versionamento de código
 
