@@ -77,3 +77,6 @@ Para isso, consideramos um job simples com três tarefas, que fornecem referênc
 
 1. No momento, os testes unitários estão desabilitados. Caso necessário, configure o Databricks Connect na workflow de CI ou altere os testes para usar uma sessão local do Spark
 
+1. Caso utilize a interface gráfica do Workflows para criar o job e exportar o YAML, lembre-se de ajustar os caminhos dos códigos/binários:
+   * Adicione a extensão do arquivo: caso seja um notebook, use `.ipynb`; caso seja um script Python, use `.py`; ou a extensão adequada para outros tipos de tarefas
+   * Modifique os caminhos para relativos: substitua os caminhos antes do diretório `src` por `../` (ex: `../src/databricks_data_ops/notebook.ipynb`)
