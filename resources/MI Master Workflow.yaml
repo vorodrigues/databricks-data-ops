@@ -1,0 +1,8 @@
+resources:
+  jobs:
+    MI_Master_Workflow:
+      name: ${bundle.target} Master Workflow
+      tasks:
+        - task_key: MI_Kafka_Workflow
+          run_job_task:
+            job_id: ${resources.jobs.MI_Kafka_Workflow.id}

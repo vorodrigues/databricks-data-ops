@@ -49,4 +49,4 @@ jobs:
       - name: Run Job in Staging
         id: job
         run: |
-          databricks bundle run MI_Master_Workflow -t staging
+          databricks bundle run databricks_data_ops_job -t staging
