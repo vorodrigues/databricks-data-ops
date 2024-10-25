@@ -25,7 +25,7 @@ resources:
       tasks:
         - task_key: list_tables
           notebook_task:
-            notebook_path: ../src/MI - List Tables.ipynb
+            notebook_path: ../src/MI - List Tables.py
             source: WORKSPACE
           job_cluster_key: job_cluster
         - task_key: for_each_table
@@ -37,7 +37,7 @@ resources:
             task:
               task_key: ingest
               notebook_task:
-                notebook_path: ../src/MI - Ingest.ipynb
+                notebook_path: ../src/MI - Ingest.py
                 base_parameters:
                   table: "{{input}}"
                 source: WORKSPACE
