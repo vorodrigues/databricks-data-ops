@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    MI_Kafka_Workflow:
+      name: ${bundle.target} MI Kafka Workflow
+      
+      parameters:
+        - name: catalog
+          default: main # Alterar para o seu catálogo
+        - name: database
+          default: vr_mi_${bundle.target}_kafka # Alterar para o seu database
+
+      job_clusters: # Alterar configurações do cluster
+        - job_cluster_key: job_cluster
+          new_cluster:
+            policy_id: E05E27B13F0003A0
+            spark_version: 13.3.x-scala2.12
+            node_type_id: i3.xlarge
+            autoscale:
+                min_workers: 1
+                max_workers: 3
+            runtime_engine: PHOTON
+            custom_tags:
+              project: data-ops
+
+      tasks:
+        - task_key: list_tables
+          notebook_task:
+            notebook_path: ../src/MI - List Tables.py
+            source: WORKSPACE
+          job_cluster_key: job_cluster
+        - task_key: for_each_table
+          depends_on:
+            - task_key: list_tables
+          for_each_task:
+            inputs: "{{tasks.list_tables.values.tables}}"
+            concurrency: 2
+            task:
+              task_key: ingest
+              notebook_task:
+                notebook_path: ../src/MI - Ingest.py
+                base_parameters:
+                  table: "{{input}}"
+                source: WORKSPACE
+              job_cluster_key: job_cluster

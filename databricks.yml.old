@@ -1,11 +1,10 @@
 # This is a Databricks asset bundle definition for databricks_data_ops.
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 bundle:
-  name: databricks_meta_ingestion_data_ops
+  name: databricks_data_ops
 
 include:
   - resources/*.yml
-  - resources/*.yaml
 
 targets:
   # The 'dev' target, for development purposes. This target is the default.
@@ -25,7 +24,9 @@ targets:
   staging:
     workspace:
       host: https://e2-demo-west.cloud.databricks.com
-      root_path: /Workspace/Shared/vr_demos/.bundle/${bundle.name}/${bundle.target}
+      # We always use /Users/victor.rodrigues@databricks.com for all resources to make sure we only have a single copy.
+      # If this path results in an error, please make sure you have a recent version of the CLI installed.
+      root_path: /Users/victor.rodrigues@databricks.com/.bundle/${bundle.name}/${bundle.target}
     run_as:
       # This runs as victor.rodrigues@databricks.com in staging. We could also use a service principal here,
       # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
@@ -38,7 +39,9 @@ targets:
     # mode: production
     workspace:
       host: https://e2-demo-west.cloud.databricks.com
-      root_path: /Workspace/Shared/vr_demos/.bundle/${bundle.name}/${bundle.target}
+      # We always use /Users/victor.rodrigues@databricks.com for all resources to make sure we only have a single copy.
+      # If this path results in an error, please make sure you have a recent version of the CLI installed.
+      root_path: /Users/victor.rodrigues@databricks.com/.bundle/${bundle.name}/${bundle.target}
     run_as:
       # This runs as victor.rodrigues@databricks.com in production. We could also use a service principal here,
       # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
