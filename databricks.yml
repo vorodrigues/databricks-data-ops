@@ -5,6 +5,7 @@ bundle:
 
 include:
   - resources/*.yml
+  - resources/*.yaml
 
 targets:
   # The 'dev' target, for development purposes. This target is the default.
