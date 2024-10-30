@@ -50,7 +50,9 @@ targets:
             - job_cluster_key: job_cluster
               new_cluster:
                 policy_id: E05E27B13F0003A0
-                num_workers: 1
+                autoscale: # Não use auto-scale em produção
+                  min_workers: 1
+                  max_workers: 1
   prod:
     resources:
       jobs:
@@ -59,4 +61,8 @@ targets:
             - job_cluster_key: job_cluster
               new_cluster:
                 policy_id: E05E27B13F0003A0
-                num_workers: 3
+                autoscale: # Não use auto-scale em produção
+                  min_workers: 1
+                  max_workers: 3
+
+
