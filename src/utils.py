@@ -7,7 +7,7 @@ kafka_secret_key = "kafka-bootstrap-servers-tls"
 
 
 # 1/ Define merge function
-def merge_delta(microbatch, target):
+def merge_delta(microbatch, target, target_exists):
 
   table = f'{target.catalog}.{target.database}_silver.{target.table}'
   merge_keys = target.merge_keys.split(',')
@@ -23,9 +23,9 @@ def merge_delta(microbatch, target):
   microbatch = microbatch.orderBy(ts_key, ascending=False).dropDuplicates(merge_keys)
   microbatch.createOrReplaceTempView("microbatch")
   
-  try:
+  if target_exists:
     # Caso a tabela já exista, os dados serão atualizados com MERGE
-    # microbatch._jdf.sparkSession().sql(f"""
+    print('Updating silver table...')
     microbatch.sparkSession.sql(f"""
       MERGE INTO {table} t
       USING microbatch s
@@ -34,8 +34,9 @@ def merge_delta(microbatch, target):
       WHEN MATCHED THEN UPDATE SET *
       WHEN NOT MATCHED THEN INSERT *
     """)
-  except:
+  else:
     # Caso a tabela ainda não exista, será criada
+    print('Creating silver table...')
     if clustering_keys:
       microbatch.writeTo(table).clusterBy(*clustering_keys).create()
     else:
@@ -61,6 +62,8 @@ def KafkaIngestion(target, spark):
 
   # Bronze Layer
 
+  print('Ingesting bronze table...')
+
   rawDF = (spark.readStream.format("kafka")
     .option("kafka.bootstrap.servers", kafka_bootstrap_servers_tls)
     .option("kafka.security.protocol", "SSL")
@@ -84,6 +87,10 @@ def KafkaIngestion(target, spark):
 
   # Silver Layer
 
+  print('Ingesting silver table...')
+
+  target_exists = (spark.sql(f"SHOW TABLES IN {catalog}.{database}_silver LIKE '{table}'").count() > 0)
+
   silverDF = (spark.readStream.table(f"{catalog}.{database}_bronze.{table}")
     .select(col("key").alias("eventId"), from_json(col("value"), schema).alias("json"))
     .select("eventId", "json.*")
@@ -93,7 +100,7 @@ def KafkaIngestion(target, spark):
     .outputMode("update")
     .option("checkpointLocation", f"{checkpoint_location}/{catalog}/{database}_silver/{table}")
     .trigger(availableNow=True)
-    .foreachBatch(lambda microbatch, x: merge_delta(microbatch, target))
+    .foreachBatch(lambda microbatch, x: merge_delta(microbatch, target, target_exists))
     .start()
     .awaitTermination()
   )
