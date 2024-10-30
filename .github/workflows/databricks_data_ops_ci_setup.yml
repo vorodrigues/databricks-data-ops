@@ -1,0 +1,29 @@
+name: Setup for databricks_data_ops
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - 'main'
+    paths:
+      - 'setup/**'
+
+defaults:
+  run:
+    working-directory: ./
+
+env:
+  DATABRICKS_TOKEN: ${{ secrets.STAGING_WORKSPACE_TOKEN }}
+
+jobs:
+  
+  setup:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - uses: databricks/setup-cli@v0.231.0
+      - name: Run setup
+        id: job
+        run: |
+          databricks bundle run MI_Setup_Workflow -t staging

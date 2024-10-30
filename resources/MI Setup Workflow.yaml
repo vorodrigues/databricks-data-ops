@@ -1,0 +1,14 @@
+resources:
+  jobs:
+    MI_Setup_Workflow:
+      name: ${bundle.target} MI Setup Workflow
+      
+      parameters:
+        - name: target
+          default: ${bundle.target}
+
+      tasks:
+        - task_key: setup
+          notebook_task:
+            notebook_path: ../setup/setup.py
+            source: WORKSPACE
