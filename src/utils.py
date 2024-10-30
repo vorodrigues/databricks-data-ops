@@ -25,6 +25,7 @@ def merge_delta(microbatch, target, target_exists):
   
   if target_exists:
     # Caso a tabela já exista, os dados serão atualizados com MERGE
+    print('Updating silver table...')
     microbatch.sparkSession.sql(f"""
       MERGE INTO {table} t
       USING microbatch s
@@ -35,6 +36,7 @@ def merge_delta(microbatch, target, target_exists):
     """)
   else:
     # Caso a tabela ainda não exista, será criada
+    print('Creating silver table...')
     if clustering_keys:
       microbatch.writeTo(table).clusterBy(*clustering_keys).create()
     else:
@@ -60,6 +62,8 @@ def KafkaIngestion(target, spark):
 
   # Bronze Layer
 
+  print('Ingesting bronze table...')
+
   rawDF = (spark.readStream.format("kafka")
     .option("kafka.bootstrap.servers", kafka_bootstrap_servers_tls)
     .option("kafka.security.protocol", "SSL")
@@ -82,6 +86,8 @@ def KafkaIngestion(target, spark):
   )
 
   # Silver Layer
+
+  print('Ingesting silver table...')
 
   target_exists = (spark.sql(f"SHOW TABLES IN {catalog}.{database}_silver LIKE '{table}'").count() > 0)
 
