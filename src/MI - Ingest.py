@@ -7,7 +7,7 @@
 
 # COMMAND ----------
 
-from utils import *
+from metaingestion import MetaIngestion
 
 # COMMAND ----------
 
@@ -25,7 +25,7 @@ table = dbutils.widgets.get('table')
 
 # COMMAND ----------
 
-conf = spark.sql(f'select * from main.vr_mi_admin.control where catalog = "{catalog}" and database = "{database}" and table = "{table}"').collect()[0]
+conf = spark.sql(f'select * from vr_demo.kafka.control where catalog = "{catalog}" and database = "{database}" and table = "{table}"').collect()[0]
 print(conf)
 
 # COMMAND ----------
@@ -34,4 +34,4 @@ print(conf)
 
 # COMMAND ----------
 
-KafkaIngestion(conf, spark)
+MetaIngestion(conf, spark)
